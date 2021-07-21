@@ -1,6 +1,6 @@
 # flutter_timer_app
 
-A new Flutter project.
+<iframe src="./flutter_timer.gif" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 
 ## Getting Started
 
