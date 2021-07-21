@@ -1,6 +1,7 @@
 # flutter_timer_app
 
-<iframe src="./flutter_timer.gif" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+![flutter_time](https://raw.githubusercontent.com/Ohgyuchan/flutter_timer_app/master/flutter_timer.gif)
+
 
 ## Getting Started
 
