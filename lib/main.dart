@@ -30,6 +30,8 @@ class TimerScreen extends StatefulWidget {
 class _TimerScreenState extends State<TimerScreen> {
   var _icon = Icons.play_arrow;
   var _color = Colors.amber;
+  bool cleared = false;
+  bool saved = false;
 
   late Timer _timer;
   var _time = 0;
@@ -104,8 +106,8 @@ class _TimerScreenState extends State<TimerScreen> {
                 ),
               ],
             ),
-            makeGradientButton('Clear Board', 80, null, null),
-            makeGradientButton('Save Time', 20, sec, hundredth),
+            makeClearBoardButton('Clear Board', 80),
+            makeSaveButton('Save Time', 20, sec, hundredth),
           ],
         ),
       ),
@@ -149,16 +151,25 @@ class _TimerScreenState extends State<TimerScreen> {
     _saveTimes.insert(0, '${_saveTimes.length + 1}등 : $time');
   }
 
-  Widget makeGradientButton(
+  Widget makeSaveButton(
       String buttonText, double height, int? sec, String? hundredth) {
-    var _textColor = Colors.white;
     return Positioned(
       right: 0,
       bottom: height,
       child: GestureDetector(
+        onTapDown: (TapDownDetails details) {
+          setState(() {
+            saved = true;
+          });
+        },
+        onTapUp: (TapUpDetails details) {
+          setState(() {
+            saved = false;
+          });
+        },
         onTap: () {
           setState(() {
-            sec == null ? _reset() : _saveTime('$sec.$hundredth');
+            _saveTime('$sec.$hundredth');
           });
         },
         child: Container(
@@ -168,19 +179,72 @@ class _TimerScreenState extends State<TimerScreen> {
           child: Center(
             child: Text(
               buttonText,
-              style: TextStyle(fontSize: 20, color: _textColor),
+              style: TextStyle(
+                  fontSize: 20, color: saved ? Colors.black : Colors.white),
             ),
           ),
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: <Color>[
-                Color(0xFF0D47A1),
-                Color(0xFF1976D2),
-                Color(0xFF42A5F5),
-              ],
-            ),
-          ),
+          decoration: saved ? _greyBoxDecoration() : _blueBoxDecoration(),
         ),
+      ),
+    );
+  }
+
+  Widget makeClearBoardButton(String buttonText, double height) {
+    return Positioned(
+      right: 0,
+      bottom: height,
+      child: GestureDetector(
+        onTapDown: (TapDownDetails details) {
+          setState(() {
+            cleared = true;
+          });
+        },
+        onTapUp: (TapUpDetails details) {
+          setState(() {
+            cleared = false;
+          });
+        },
+        onTap: () {
+          setState(() {
+            _reset();
+          });
+        },
+        child: Container(
+          padding: const EdgeInsets.all(10.0),
+          width: 200,
+          height: 50,
+          child: Center(
+            child: Text(
+              buttonText,
+              style: TextStyle(
+                  fontSize: 20, color: cleared ? Colors.black : Colors.white),
+            ),
+          ),
+          decoration: cleared ? _greyBoxDecoration() : _blueBoxDecoration(),
+        ),
+      ),
+    );
+  }
+
+  BoxDecoration _blueBoxDecoration() {
+    return BoxDecoration(
+      gradient: LinearGradient(
+        colors: [
+          Color(0xFF0D47A1),
+          Color(0xFF1976D2),
+          Color(0xFF42A5F5),
+        ],
+      ),
+    );
+  }
+
+  BoxDecoration _greyBoxDecoration() {
+    return BoxDecoration(
+      gradient: LinearGradient(
+        colors: [
+          Colors.grey,
+          Colors.white,
+        ],
       ),
     );
   }
