@@ -1,6 +1,7 @@
 # flutter_timer_app
 
-A new Flutter project.
+![flutter_time](https://raw.githubusercontent.com/Ohgyuchan/flutter_timer_app/master/flutter_timer.gif)
+
 
 ## Getting Started
 
