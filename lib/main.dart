@@ -139,7 +139,7 @@ class _TimerScreenState extends State<TimerScreen> {
 
   void _reset() {
     setState(() {
-      _click();
+      if (_isPlaying) _click();
       _saveTimes.clear();
       _time = 0;
     });
